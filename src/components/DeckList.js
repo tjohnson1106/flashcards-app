@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Button } from "react-native";
 
 import { getData } from "../utils/api";
 
@@ -13,6 +13,16 @@ class DeckList extends Component {
           return (
             <View key={deck}>
               <Text>{title}</Text>
+              <Text>{questions.length}</Text>
+
+              <Button
+                onPress={() =>
+                  this.props.navigation.navigate("DeckView", {
+                    entryId: deck
+                  })
+                }
+                title="View Deck"
+              />
             </View>
           );
         })}

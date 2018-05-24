@@ -2,16 +2,17 @@ import React from "react";
 import { View } from "react-native";
 import {
   createBottomTabNavigator,
-  StackNavigator
+  createStackNavigator
 } from "react-navigation";
 import {
   FontAwesome,
   MaterialCommunityIcons
 } from "@expo/vector-icons";
 
-import AddDeck from "./src/components/AddDeck";
 import { purple, white } from "./src/utils/colors";
 import DeckList from "./src/components/DeckList";
+import AddDeck from "./src/components/AddDeck";
+import DeckView from "./src/components/DeckView";
 
 const Tabs = createBottomTabNavigator(
   {
@@ -53,7 +54,7 @@ const Tabs = createBottomTabNavigator(
   }
 );
 
-const MainNavigator = StackNavigator({
+const MainNavigator = createStackNavigator({
   Home: {
     screen: Tabs,
     navigationOptions: {
@@ -74,7 +75,7 @@ const MainNavigator = StackNavigator({
 
 const App = () => (
   <View style={{ flex: 1 }}>
-    <Tabs />
+    <MainNavigator />
   </View>
 );
 
