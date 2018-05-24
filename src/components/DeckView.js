@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { connect } from "react-redux";
+import { withNavigation } from "react-navigation";
 
 import { getData } from "../utils/api";
 import ActionButton from "./buttons/ActionButton";
@@ -31,7 +32,7 @@ class DeckView extends Component {
           text={"Start Quiz"}
           color={red}
           onPress={() =>
-            this.props.navigation.navigate("Quiz", {
+            this.props.navigation.navigate("Quiz ", {
               entryId: deck
             })
           }
@@ -61,10 +62,10 @@ const styles = StyleSheet.create({
   }
 });
 
-function mapStateToProp({ decks }) {
+function mapStateToProps({ decks }) {
   return {
     decks
   };
 }
 
-export default connect(mapStateToProp)(DeckView);
+export default connect(mapStateToProps)(DeckView);
