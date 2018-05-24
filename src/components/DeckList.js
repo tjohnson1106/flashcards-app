@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import { connect } from "react-redux";
 
-import { getData } from "../utils/api";
-import { getDecks } from "../utils/api";
+import { getData, getDecks } from "../utils/api";
 import { receiveDecks } from "../actions";
 
 class DeckList extends Component {
@@ -12,6 +11,7 @@ class DeckList extends Component {
   }
 
   render() {
+    //map state
     const { decks } = this.props;
     return (
       <View style={styles.container}>

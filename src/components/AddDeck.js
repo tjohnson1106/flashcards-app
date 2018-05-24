@@ -8,6 +8,7 @@ import {
 } from "react-native";
 
 import { saveDeckTitle } from "../utils/api";
+import { AddDeck } from "../actions";
 
 class AddDeck extends Component {
   state = {
@@ -19,7 +20,10 @@ class AddDeck extends Component {
 
     saveDeckTitle(text);
     this.props.dispatch(AddDeck(text));
-    this.props.navigation.navigate("Deckview", {});
+    this.props.navigation.navigate("Deckview", { entryId: text });
+    this.setState({
+      text: ""
+    });
   };
 
   render() {
