@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { connect } from "react-redux";
 
 import { getData } from "../utils/api";
 
 class DeckView extends Component {
   render() {
     const deck = this.props.navigation.state.params.entryId;
-    const decks = getData();
+    const { decks } = this.props;
     console.log(deck);
     return (
       <View style={styles.container}>
@@ -25,4 +26,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DeckView;
+function mapStateToProp({ decks }) {
+  return {
+    decks
+  };
+}
+
+export default connect(mapStateToProp)(DeckView);

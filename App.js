@@ -14,7 +14,7 @@ import { createStore } from "redux";
 import reducer from "./src/reducers";
 import { purple, white } from "./src/utils/colors";
 import DeckList from "./src/components/DeckList";
-import AddDeck from "./src/components/AddDeck";
+import AddedDeck from "./src/components/AddedDeck";
 import DeckView from "./src/components/DeckView";
 
 const Tabs = createBottomTabNavigator(
@@ -32,10 +32,10 @@ const Tabs = createBottomTabNavigator(
         )
       }
     },
-    AddDeck: {
-      screen: AddDeck,
+    AddedDeck: {
+      screen: AddedDeck,
       navigationOptions: {
-        tabBarLabel: "Add Deck",
+        tabBarLabel: "Added Deck",
         tabBarIcon: ({ tintColor }) => (
           <FontAwesome
             name="plus-square"
