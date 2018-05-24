@@ -8,7 +8,10 @@ import {
   FontAwesome,
   MaterialCommunityIcons
 } from "@expo/vector-icons";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
 
+import reducer from "./src/reducers";
 import { purple, white } from "./src/utils/colors";
 import DeckList from "./src/components/DeckList";
 import AddDeck from "./src/components/AddDeck";
@@ -74,9 +77,11 @@ const MainNavigator = createStackNavigator({
 });
 
 const App = () => (
-  <View style={{ flex: 1 }}>
-    <MainNavigator />
-  </View>
+  <Provider store={createStore(reducer)}>
+    <View style={{ flex: 1 }}>
+      <MainNavigator />
+    </View>
+  </Provider>
 );
 
 export default App;
