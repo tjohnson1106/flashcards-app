@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 import { orange, white } from "../utils/colors";
 import { addCardToDeck } from "../utils/api";
 import { addCard } from "../actions";
+import { SubmitButton } from "./buttons/SubmitButton";
 
 class AddCard extends Component {
   state = {
@@ -38,6 +39,11 @@ class AddCard extends Component {
       answer: "",
       correctAnswer: ""
     });
+    this.props.navigation.dispatch(
+      NavigationActions.back({
+        key: null
+      })
+    );
   };
 
   render() {
@@ -73,9 +79,7 @@ class AddCard extends Component {
           >
             {}
           </TextInput>
-          <Text style={styles.title}>
-            What is the correct answer?
-          </Text>
+          <Text style={styles.title}>Is this true or false?</Text>
           <TextInput
             style={styles.inputText}
             onChangeText={correctAnswer =>
@@ -87,13 +91,10 @@ class AddCard extends Component {
           >
             {}
           </TextInput>
-
-          <TouchableOpacity
+          <SubmitButton
             style={styles.submitButton}
             onPress={() => this.submitCard(deckName)}
-          >
-            <Text style={styles.submitButtonText}>Submit</Text>
-          </TouchableOpacity>
+          />
         </View>
       </KeyboardAvoidingView>
     );
