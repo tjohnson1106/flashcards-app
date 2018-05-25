@@ -15,14 +15,24 @@ import { addCardToDeck } from "../utils/api";
 import { addCard } from "../actions";
 
 class AddCard extends Component {
+  state = {
+    question: "",
+    answer: "",
+    correctAnswer: ""
+  };
+
+  submitCard = () => {};
+
   render() {
+    const deckName = this.props.navigation.state.params.entryId;
+
     return (
       <KeyboardAvoidingView
         behavior="padding"
         style={styles.container}
       >
         <View style={styles.container}>
-          <Text style={styles.title}>{}</Text>
+          <Text style={styles.title}>What is the question?</Text>
           <TextInput
             style={styles.inputText}
             onChangeText={question =>
@@ -34,7 +44,7 @@ class AddCard extends Component {
           >
             {}
           </TextInput>
-          <Text style={styles.title}>{}</Text>
+          <Text style={styles.title}>What is the answer?</Text>
           <TextInput
             style={styles.inputText}
             onChangeText={answer =>
@@ -46,7 +56,9 @@ class AddCard extends Component {
           >
             {}
           </TextInput>
-          <Text style={styles.title}>{}</Text>
+          <Text style={styles.title}>
+            What is the correct answer?
+          </Text>
           <TextInput
             style={styles.inputText}
             onChangeText={correctAnswer =>
@@ -59,8 +71,11 @@ class AddCard extends Component {
             {}
           </TextInput>
 
-          <TouchableOpacity>
-            <Text>Submit</Text>
+          <TouchableOpacity
+            style={styles.submitButton}
+            onPress={() => this.submitCard(deckName)}
+          >
+            <Text style={styles.submitButtonText}>Submit</Text>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>

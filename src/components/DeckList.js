@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import { connect } from "react-redux";
 
+import { deck } from "../components/DeckView";
 import { getData, getDecks } from "../utils/api";
 import { receiveDecks } from "../actions";
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { View } from "react-native";
 import {
   createBottomTabNavigator,
@@ -16,6 +16,7 @@ import { purple, white } from "./src/utils/colors";
 import DeckList from "./src/components/DeckList";
 import AddedDeck from "./src/components/AddedDeck";
 import DeckView from "./src/components/DeckView";
+import AddCard from "./src/components/AddCard";
 
 const Tabs = createBottomTabNavigator(
   {
@@ -73,15 +74,27 @@ const MainNavigator = createStackNavigator({
         backgroundColor: purple
       }
     }
+  },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: {
+      title: "Add Card",
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple
+      }
+    }
   }
 });
 
-const App = () => (
-  <Provider store={createStore(reducer)}>
-    <View style={{ flex: 1 }}>
-      <MainNavigator />
-    </View>
-  </Provider>
-);
-
-export default App;
+export default class App extends Component {
+  render() {
+    return (
+      <Provider store={createStore(reducer)}>
+        <View style={{ flex: 1 }}>
+          <MainNavigator />
+        </View>
+      </Provider>
+    );
+  }
+}
