@@ -21,7 +21,24 @@ class AddCard extends Component {
     correctAnswer: ""
   };
 
-  submitCard = () => {};
+  submitCard = () => {
+    const { question, answer, correctAnswer } = this.state;
+
+    this.props.dispatch(
+      addCard({
+        question,
+        answer,
+        correctAnswer,
+        deck
+      })
+    );
+    addCardToDeck(deck, { question, answer, correctAnswer });
+    this.setState({
+      question: "",
+      answer: "",
+      correctAnswer: ""
+    });
+  };
 
   render() {
     const deckName = this.props.navigation.state.params.entryId;
@@ -117,4 +134,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default AddCard;
+export default connect()(AddCard);
