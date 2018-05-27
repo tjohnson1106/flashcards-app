@@ -111,14 +111,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: "#333"
   },
-  submitButton: {
-    borderWidth: 0.5,
-    borderColor: "#d6d7da",
-    padding: 10,
-    backgroundColor: orange,
-    borderRadius: 7,
-    overflow: "hidden"
-  },
   inputText: {
     width: 250,
     height: 40,
