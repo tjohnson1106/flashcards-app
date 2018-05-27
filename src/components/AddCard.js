@@ -13,7 +13,6 @@ import { connect } from "react-redux";
 import { orange, white } from "../utils/colors";
 import { addCardToDeck } from "../utils/api";
 import { addCard } from "../actions";
-import { SubmitButton } from "./buttons/SubmitButton";
 
 class AddCard extends Component {
   state = {
@@ -91,10 +90,6 @@ class AddCard extends Component {
           >
             {}
           </TextInput>
-          <SubmitButton
-            style={styles.submitButton}
-            onPress={() => this.submitCard(deckName)}
-          />
         </View>
       </KeyboardAvoidingView>
     );

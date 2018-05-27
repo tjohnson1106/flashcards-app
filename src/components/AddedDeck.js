@@ -10,7 +10,8 @@ import { connect } from "react-redux";
 
 import { saveDeckTitle } from "../utils/api";
 import { addDeck } from "../actions";
-
+import SubmitButton from "./buttons/SubmitButton";
+import { orange } from "../utils/colors";
 class AddedDeck extends Component {
   state = {
     text: ""
@@ -38,13 +39,10 @@ class AddedDeck extends Component {
         >
           {}
         </TextInput>
-        <Button
+        <SubmitButton
           style={styles.submitButton}
           onPress={this.submitName}
-          title="submit"
-        >
-          {}
-        </Button>
+        />
       </View>
     );
   }
