@@ -22,7 +22,29 @@ class Quiz extends Component {
     const number = this.state.questionNumber + 1;
     return (
       <View style={styles.container}>
-        <Text>{decks[deck].questions[questionNumber].question}</Text>
+        <View style={styles.card}>
+          <Text style={styles.questions}>
+            {number} / {decks[deck].question.length}
+          </Text>
+          <Text style={styles.mainText}>
+            {decks[deck].questions[questionNumber].question}
+          </Text>
+
+          <InfoButton style={styles.answer} text={"Show Answer"}>
+            {}
+          </InfoButton>
+
+          <ActionButton
+            color={green}
+            style={styles}
+            text={"Correct"}
+          />
+          <ActionButton
+            color={red}
+            styles={styles}
+            text={"incorrect"}
+          />
+        </View>
       </View>
     );
   }
@@ -33,6 +55,50 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center"
+  },
+  iosButton: {
+    padding: 10,
+    borderRadius: 7,
+    height: 45,
+    margin: 5,
+    width: 170
+  },
+  questions: {
+    top: 0,
+    alignSelf: "flex-start",
+    left: 0,
+    top: 0,
+    color: white,
+    fontSize: 20,
+    margin: 5,
+    position: "absolute"
+  },
+  answer: {
+    color: white,
+    fontSize: 20,
+    margin: 20
+  },
+  card: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: orange,
+    margin: 8,
+    height: 200,
+    borderRadius: 10,
+    shadowColor: "rgba(0, 0, 0, 0.34)",
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 4,
+    shadowOpacity: 1
+  },
+  mainText: {
+    fontSize: 40,
+    color: white,
+    marginTop: 40,
+    textAlign: "center"
   }
 });
 
