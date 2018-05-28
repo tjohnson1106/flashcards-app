@@ -18,6 +18,7 @@ import DeckList from "./src/components/DeckList";
 import AddedDeck from "./src/components/AddedDeck";
 import DeckView from "./src/components/DeckView";
 import AddCard from "./src/components/AddCard";
+import Quiz from "./src/components/Quiz";
 
 function MainStatusBar({ backgroundColor, ...props }) {
   return (
@@ -98,6 +99,13 @@ const MainNavigator = createStackNavigator({
       headerStyle: {
         backgroundColor: purple
       }
+    }
+  },
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: {
+      title: "Quiz",
+      headerTintColor: white
     }
   }
 });
