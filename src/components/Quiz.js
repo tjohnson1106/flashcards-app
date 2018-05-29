@@ -20,6 +20,15 @@ class Quiz extends Component {
     showQuestion: false
   };
 
+  showAnswer = () =>
+    !this.state.showQuestion
+      ? this.setState({
+          showQuestion: true
+        })
+      : this.setState({
+          showQuestion: false
+        });
+
   render() {
     const questionNumber = this.state.questionNumber;
     const decks = this.props.decks;
