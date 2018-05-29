@@ -15,6 +15,11 @@ import ActionButton from "./buttons/ActionButton";
 import { InfoButton } from "./buttons/InfoButton";
 
 class Quiz extends Component {
+  state = {
+    questionNumber: 0,
+    showQuestion: false
+  };
+
   render() {
     const questionNumber = this.state.questionNumber;
     const decks = this.props.decks;
@@ -26,9 +31,34 @@ class Quiz extends Component {
           <Text style={styles.questions}>
             {number} / {decks[deck].question.length}
           </Text>
-          <Text style={styles.mainText}>
-            {decks[deck].questions[questionNumber].question}
-          </Text>
+
+          {!this.state.showQuestion ? (
+            <Text style={styles.mainText}>
+              {decks[deck].questions[questionNumber].question}
+            </Text>
+          ) : (
+            <Text style={styles.mainText}>
+              {decks[deck].questions[questionNumber].answer}
+            </Text>
+          )}
+
+          {!this.state.showQuestion ? (
+            <InfoButton
+              style={styles.answer}
+              text={"Show Answer"}
+              onPress={this.showAnswer}
+            >
+              {}
+            </InfoButton>
+          ) : (
+            <InfoButton
+              style={styles.answer}
+              text={"Show Question"}
+              onPress={this.showAnswer}
+            >
+              {}
+            </InfoButton>
+          )}
 
           <InfoButton style={styles.answer} text={"Show Answer"}>
             {}
@@ -62,6 +92,11 @@ const styles = StyleSheet.create({
     height: 45,
     margin: 5,
     width: 170
+  },
+  submitButtonText: {
+    color: white,
+    fontSize: 26,
+    textAlign: "center"
   },
   questions: {
     top: 0,
