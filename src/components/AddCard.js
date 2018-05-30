@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 import { orange, white } from "../utils/colors";
 import { addCardToDeck } from "../utils/api";
 import { addCard } from "../actions";
+import { SubmitButton } from "./buttons/SubmitButton";
 
 class AddCard extends Component {
   state = {
@@ -65,9 +66,7 @@ class AddCard extends Component {
               })
             }
             value={this.state.question}
-          >
-            {}
-          </TextInput>
+          />
           <Text style={styles.title}>What is the answer?</Text>
           <TextInput
             style={styles.inputText}
@@ -77,9 +76,7 @@ class AddCard extends Component {
               })
             }
             value={this.state.answer}
-          >
-            {}
-          </TextInput>
+          />
           <Text style={styles.title}>Is this true or false?</Text>
           <TextInput
             style={styles.inputText}
@@ -89,9 +86,9 @@ class AddCard extends Component {
               })
             }
             value={this.state.correctAnswer}
-          >
-            {}
-          </TextInput>
+          />
+
+          <SubmitButton styles={styles} onPress={this.submitCard} />
         </View>
       </KeyboardAvoidingView>
     );
@@ -117,11 +114,18 @@ const styles = StyleSheet.create({
     width: 250,
     height: 40,
     padding: 8,
+
     borderWidth: 1,
     borderColor: "#757575",
     margin: 20,
     borderRadius: 7
   }
 });
+
+// function mapStateToProps(deckName) {
+//   return {
+//     deckName
+//   };
+// }
 
 export default connect()(AddCard);
