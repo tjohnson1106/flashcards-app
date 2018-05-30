@@ -4,7 +4,8 @@ import {
   Text,
   TouchableOpacity,
   KeyboardAvoidingView,
-  StyleSheet
+  StyleSheet,
+  Animated
 } from "react-native";
 import { NavigationActions } from "react-navigation";
 import Emoji from "react-native-emoji";
@@ -20,7 +21,8 @@ class Quiz extends Component {
     questionNumber: 0,
     showQuestion: false,
     correct: 0,
-    incorrect: 0
+    incorrect: 0,
+    animation: new Animated.Value(0.5)
   };
 
   showAnswer = () =>
@@ -59,17 +61,35 @@ class Quiz extends Component {
     });
   };
 
+  handleAnimation = () => {
+    Animated.spring(this.state.animation, {
+      toValue: 1.1,
+      friction: 2,
+      tension: 360,
+      duration: 1000
+    }).start(() => {
+      Animated.spring(this.state.animation, {
+        toValue: 1,
+        duration: 100
+      }).start();
+    });
+  };
+
   render() {
     const questionNumber = this.state.questionNumber;
     const decks = this.props.decks;
     const deck = this.props.navigation.state.params.entryId;
     const number = this.state.questionNumber + 1;
 
+    const animatedStyle = {
+      transform: [{ scale: this.state.animation }]
+    };
+
     if (questionNumber === decks[deck].questions.length) {
       return (
-        <View>
-          <View>
-            <Text>
+        <View style={styles.container}>
+          <View style={styles.card}>
+            <Text style={styles.mainText}>
               You got {this.state.correct} out of{" "}
               {decks[decks].questions.length}!
               {this.state.correct > this.state.incorrect ? (
