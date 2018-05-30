@@ -17,7 +17,9 @@ import { InfoButton } from "./buttons/InfoButton";
 class Quiz extends Component {
   state = {
     questionNumber: 0,
-    showQuestion: false
+    showQuestion: false,
+    correct: 0,
+    incorrect: 0
   };
 
   showAnswer = () =>
@@ -28,6 +30,29 @@ class Quiz extends Component {
       : this.setState({
           showQuestion: false
         });
+
+  submitAnswer = answer => {
+    //check if the answer is correct
+    //increment the question number
+    //show animation
+
+    const { questionNumber } = this.state;
+    const deck = this.props.navigation.state.params.entryId;
+    const decks = this.props.decks;
+    const correct = decks[deck].questions[
+      questionNumber
+    ].correctAnswer.toLowerCase();
+
+    if (answer === correct) {
+      this.setState({
+        correct: this.state.correct + 1
+      });
+    } else {
+      this.setState({
+        incorrect: this.state.incorrect + 1
+      });
+    }
+  };
 
   render() {
     const questionNumber = this.state.questionNumber;
