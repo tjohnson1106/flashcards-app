@@ -7,6 +7,7 @@ import {
   StyleSheet
 } from "react-native";
 import { NavigationActions } from "react-navigation";
+import Emoji from "react-native-emoji";
 
 import { orange, white, purple, red, green } from "../utils/colors";
 import { SubmitButton } from "./buttons/SubmitButton";
@@ -52,6 +53,10 @@ class Quiz extends Component {
         incorrect: this.state.incorrect + 1
       });
     }
+    this.setState({
+      questionNumber: this.state.questionNumber + 1,
+      showQuestion: false
+    });
   };
 
   render() {
@@ -59,6 +64,40 @@ class Quiz extends Component {
     const decks = this.props.decks;
     const deck = this.props.navigation.state.params.entryId;
     const number = this.state.questionNumber + 1;
+
+    if (questionNumber === decks[deck].questions.length) {
+      return (
+        <View>
+          <View>
+            <Text>
+              You got {this.state.correct} out of{" "}
+              {decks[decks].questions.length}!
+              {this.state.correct > this.state.incorrect ? (
+                <Text style={{ fontSize: 90 }}>
+                  <Emoji name="smiling face with halo" />
+                </Text>
+              ) : (
+                <Text style={{ fontSize: 90 }}>
+                  <Emoji name="hushed face" />
+                </Text>
+              )}
+            </Text>
+
+            <ActionButton
+              styles={styles}
+              text={"Try Again"}
+              color={red}
+            />
+            <ActionButton
+              styles={styles}
+              text={"Go Back"}
+              color={green}
+            />
+          </View>
+        </View>
+      );
+    }
+
     return (
       <View style={styles.container}>
         <View style={styles.card}>
@@ -102,11 +141,13 @@ class Quiz extends Component {
             color={green}
             style={styles}
             text={"Correct"}
+            onPress={() => this.submitAnswer("true")}
           />
           <ActionButton
             color={red}
             styles={styles}
             text={"incorrect"}
+            onPress={() => this.submitAnswer("false")}
           />
         </View>
       </View>
