@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  ScrollView
+} from "react-native";
 import { connect } from "react-redux";
 
 import { deck } from "../components/DeckView";
@@ -18,7 +24,7 @@ class DeckList extends Component {
     //map state
     const { decks } = this.props;
     return (
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.contentContainer}>
         {Object.keys(decks).map(deck => {
           const { title, questions } = decks[deck];
           return (
@@ -40,17 +46,17 @@ class DeckList extends Component {
             </View>
           );
         })}
-      </View>
+      </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  contentContainer: {
     flex: 1,
-    justifyContent: "center",
     alignSelf: "stretch",
-    padding: 5
+    padding: 5,
+    justifyContent: "center"
   },
   card: {
     flex: 1,
