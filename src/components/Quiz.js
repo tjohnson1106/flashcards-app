@@ -8,7 +8,6 @@ import {
   Animated
 } from "react-native";
 import { NavigationActions } from "react-navigation";
-import Emoji from "react-native-emoji";
 
 import { orange, white, purple, red, green } from "../utils/colors";
 import { SubmitButton } from "./buttons/SubmitButton";
@@ -22,7 +21,9 @@ class Quiz extends Component {
     showQuestion: false,
     correct: 0,
     incorrect: 0,
-    animation: new Animated.Value(0.5)
+    animation: new Animated.Value(0.5),
+    rotate: new Animated.Value(0),
+    colorChange: new Animated.Value(0)
   };
 
   showAnswer = () =>
@@ -48,7 +49,7 @@ class Quiz extends Component {
       questionNumber
     ].correctAnswer.toLowerCase();
 
-    if (answer === correct) {
+    if (answer.trim() === correct.trim()) {
       this.setState({
         correct: this.state.correct + 1
       });
@@ -86,6 +87,32 @@ class Quiz extends Component {
         duration: 1000
       }).start();
     });
+    Animated.timing(this.state.colorChange, {
+      toValue: 1,
+      duration: 1500
+    }).start(() => {
+      Animated.timing(this.state.colorChange, {
+        toValue: 0,
+        duration: 1500
+      }).start();
+    });
+  };
+
+  replayQuiz = () => {
+    this.setState({
+      questionNumber: 0,
+      showQuestion: false,
+      correct: 0,
+      incorrect: 0
+    });
+  };
+
+  goBack = () => {
+    this.props.navigation.dispatch(
+      NavigationActions.back({
+        key: null
+      })
+    );
   };
 
   render() {
@@ -111,10 +138,22 @@ class Quiz extends Component {
       ]
     };
 
+    const boxInterpolation = this.state.colorChange.interpolate({
+      inputRange: [0, 1],
+      outputRange: [
+        "rgba( 242, 111, 40, 1 )",
+        "rgba( 185, 63, 179, 1 )"
+      ]
+    });
+
+    const boxAnimation = {
+      backgroundColor: boxInterpolation
+    };
+
     if (questionNumber === decks[deck].questions.length) {
       return (
         <View style={styles.container}>
-          <View style={styles.card}>
+          <Animated.View style={[styles.card, boxAnimation]}>
             <Animated.View style={animatedStyle}>
               <Text style={styles.mainText}>
                 You got {this.state.correct} out of{" "}
@@ -122,26 +161,34 @@ class Quiz extends Component {
               </Text>
             </Animated.View>
             {this.state.correct > this.state.incorrect ? (
-              <Text style={{ fontSize: 90 }}>
-                <Emoji name="smiling face with halo" />
-              </Text>
+              <Animated.View style={rotateStyles}>
+                <Text style={{ fontSize: 90 }}>
+                  Pretend Emoji Smiling Face!
+                </Text>
+              </Animated.View>
             ) : (
-              <Text style={{ fontSize: 90 }}>
-                <Emoji name="hushed face" />
-              </Text>
+              <Animated.View style={rotateStyles}>
+                <Text style={{ fontSize: 90 }}>
+                  Pretend Emoji Frowning Face!
+                </Text>
+              </Animated.View>
             )}
 
-            <ActionButton
-              styles={styles}
-              text={"Try Again"}
-              color={red}
-            />
-            <ActionButton
-              styles={styles}
-              text={"Go Back"}
-              color={green}
-            />
-          </View>
+            <View>
+              <ActionButton
+                styles={styles}
+                text={"Try Again"}
+                color={red}
+                onPress={this.replayQuiz}
+              />
+              <ActionButton
+                styles={styles}
+                text={"Go Back"}
+                color={green}
+                onPress={this.goBack}
+              />
+            </View>
+          </Animated.View>
         </View>
       );
     }

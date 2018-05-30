@@ -21,28 +21,30 @@ class AddCard extends Component {
     correctAnswer: ""
   };
 
-  submitCard = () => {
+  submitCard = deck => {
     const { question, answer, correctAnswer } = this.state;
 
-    this.props.dispatch(
-      addCard({
-        question,
-        answer,
-        correctAnswer,
-        deck
-      })
-    );
-    addCardToDeck(deck, { question, answer, correctAnswer });
-    this.setState({
-      question: "",
-      answer: "",
-      correctAnswer: ""
-    });
-    this.props.navigation.dispatch(
-      NavigationActions.back({
-        key: null
-      })
-    );
+    if (question && answer) {
+      this.props.dispatch(
+        addCard({
+          question,
+          answer,
+          correctAnswer,
+          deck
+        })
+      );
+      addCardToDeck(deck, { question, answer, correctAnswer });
+      this.setState({
+        question: "",
+        answer: "",
+        correctAnswer: ""
+      });
+      this.props.navigation.dispatch(
+        NavigationActions.back({
+          key: null
+        })
+      );
+    }
   };
 
   render() {
