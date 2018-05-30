@@ -39,6 +39,8 @@ class Quiz extends Component {
     //increment the question number
     //show animation
 
+    this.handleAnimation();
+
     const { questionNumber } = this.state;
     const deck = this.props.navigation.state.params.entryId;
     const decks = this.props.decks;
@@ -73,6 +75,17 @@ class Quiz extends Component {
         duration: 100
       }).start();
     });
+
+    Animated.timing(this.state.rotate, {
+      toValue: 360,
+      friction: 1500,
+      delay: 1000
+    }).start(() => {
+      Animated.timing(this.state.rotate, {
+        toValue: 0,
+        duration: 1000
+      }).start();
+    });
   };
 
   render() {
@@ -85,23 +98,38 @@ class Quiz extends Component {
       transform: [{ scale: this.state.animation }]
     };
 
+    const rotateInterpolate = this.state.rotate.interpolate({
+      inputRange: [0, 360],
+      outputRange: ["0deg", "1080deg"]
+    });
+
+    const rotateStyles = {
+      transform: [
+        {
+          rotate: rotateInterpolate
+        }
+      ]
+    };
+
     if (questionNumber === decks[deck].questions.length) {
       return (
         <View style={styles.container}>
           <View style={styles.card}>
-            <Text style={styles.mainText}>
-              You got {this.state.correct} out of{" "}
-              {decks[decks].questions.length}!
-              {this.state.correct > this.state.incorrect ? (
-                <Text style={{ fontSize: 90 }}>
-                  <Emoji name="smiling face with halo" />
-                </Text>
-              ) : (
-                <Text style={{ fontSize: 90 }}>
-                  <Emoji name="hushed face" />
-                </Text>
-              )}
-            </Text>
+            <Animated.View style={animatedStyle}>
+              <Text style={styles.mainText}>
+                You got {this.state.correct} out of{" "}
+                {decks[decks].questions.length}!
+              </Text>
+            </Animated.View>
+            {this.state.correct > this.state.incorrect ? (
+              <Text style={{ fontSize: 90 }}>
+                <Emoji name="smiling face with halo" />
+              </Text>
+            ) : (
+              <Text style={{ fontSize: 90 }}>
+                <Emoji name="hushed face" />
+              </Text>
+            )}
 
             <ActionButton
               styles={styles}
