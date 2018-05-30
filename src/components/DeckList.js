@@ -3,9 +3,11 @@ import { View, Text, StyleSheet, Button } from "react-native";
 import { connect } from "react-redux";
 
 import { deck } from "../components/DeckView";
-import { getData, getDecks } from "../utils/api";
+import { getData } from "../utils/api";
+import { getDecks } from "../utils/api";
 import { receiveDecks } from "../actions";
 import { orange, white } from "../utils/colors";
+import { getCardsLength } from "../utils/helpers";
 
 class DeckList extends Component {
   componentDidMount() {
@@ -22,7 +24,9 @@ class DeckList extends Component {
           return (
             <View key={deck} style={styles.card}>
               <Text style={styles.cardText}>{title}</Text>
-              <Text style={styles.cardText}>{questions.length}</Text>
+              <Text style={styles.cardText}>
+                {questions ? getCardsLength(questions) : null}
+              </Text>
 
               <Button
                 style={styles.cardButton}
